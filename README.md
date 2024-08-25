@@ -1,4 +1,4 @@
-Replace searchTerm props of Root to Input's v-model
+Replace searchTerm props of Root to Input's v-model.
 
 ## Example
 
