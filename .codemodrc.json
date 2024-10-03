@@ -1,6 +1,6 @@
 {
   "$schema": "https://codemod-utils.s3.us-west-1.amazonaws.com/configuration_schema.json",
-  "name": "rekaUI-v2/searchTerm-props-of-Root-to-Input's-v-model",
+  "name": "reka-ui/rename-controlled-state",
   "version": "1.0.0",
   "engine": "jscodeshift",
   "private": false,

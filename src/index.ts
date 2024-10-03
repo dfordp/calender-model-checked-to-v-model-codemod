@@ -1,25 +1,28 @@
-export default function transform(file, api) {
+export default function transform(file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
   let dirtyFlag = false;
 
   // Find all JSXElements
   root.find(j.JSXElement).forEach(path => {
-    const openingElement = path.value.openingElement;
+    const openingElement = path.node.openingElement;
 
-    // Check if the element is CheckboxRoot
-    if (j.JSXIdentifier.check(openingElement.name) && openingElement.name.name === 'CheckboxRoot') {
-      // Find all attributes
-      openingElement.attributes.forEach(attr => {
-        // Check if the attribute is v-model:checked
-        if (j.JSXAttribute.check(attr) && j.JSXNamespacedName.check(attr.name) && attr.name.namespace.name === 'v-model' && attr.name.name.name === 'checked') {
-          // Replace v-model:checked with v-model
+    // Check if the element has a v-model:checked directive
+    openingElement.attributes.forEach(attr => {
+      if (j.JSXAttribute.check(attr) && j.JSXNamespacedName.check(attr.name)) {
+        const { namespace, name } = attr.name;
+
+        // If the directive is v-model:checked, transform it to v-model
+        if (namespace.name === 'v-model' && name.name === 'checked') {
           attr.name = j.jsxIdentifier('v-model');
           dirtyFlag = true;
         }
-      });
-    }
+      }
+    });
   });
 
   return dirtyFlag ? root.toSource() : undefined;
 }
+
+
+export const parser = "tsx";

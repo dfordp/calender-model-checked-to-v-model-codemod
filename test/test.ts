@@ -20,7 +20,7 @@ const buildApi = (parser: string | undefined): API => ({
   },
 });
 
-describe('vue/2/v-model-checked-to-v-model', () => {
+describe('vue/3/v-model-checked-to-v-model', () => {
   it('test #1', async () => {
     const INPUT = await readFile(join(__dirname, '..', '__testfixtures__/fixture1.input.ts'), 'utf-8');
     const OUTPUT = await readFile(join(__dirname, '..', '__testfixtures__/fixture1.output.ts'), 'utf-8');
